@@ -1,4 +1,9 @@
 streamlit
-pandasai
-python-dotenv
-openai==0.10.0
+pypdf
+langchain
+torch
+accelerate
+bitsandbytes
+transformers
+sentence_transformers
+faiss_cpu
