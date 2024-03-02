@@ -1,11 +1,3 @@
 streamlit
-pypdf
+dotenv
 langchain
-torch
-accelerate
-bitsandbytes
-transformers
-sentence_transformers
-faiss_cpu
-streamlit
-streamlit-chat==0.1.0
