@@ -1,4 +1,4 @@
 streamlit
 pandasai
 python-dotenv
-pyYAML
+PyYAML
