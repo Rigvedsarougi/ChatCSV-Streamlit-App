@@ -1,5 +1,5 @@
 langchain==0.0.154
-PyPDF2
+PyPDF2==1.26.0
 python-dotenv==1.0.0
 streamlit==1.18.1
 faiss-cpu==1.7.4
