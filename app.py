@@ -2,6 +2,7 @@ import streamlit as st
 from pandasai.llm.openai import OpenAI
 from dotenv import load_dotenv
 import os
+import yaml
 import pandas as pd
 from pandasai import PandasAI
 
