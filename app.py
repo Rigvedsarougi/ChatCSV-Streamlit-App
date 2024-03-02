@@ -1,47 +1,40 @@
-import streamlit as st 
-from pandasai.llm.openai import OpenAI
-from dotenv import load_dotenv
-import os
+import streamlit as st
 import pandas as pd
-from pandasai import PandasAI
+import openai
 
-load_dotenv()
+# Set up OpenAI API
+openai.api_key = "your_openai_api_key"
 
+# Define function to generate response using OpenAI API
+def generate_response(prompt):
+    response = openai.Completion.create(
+      engine="davinci",
+      prompt=prompt,
+      max_tokens=50
+    )
+    return response.choices[0].text.strip()
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+# Main function to run the chatbot
+def main():
+    st.title("Streamlit Chatbot")
 
+    # Upload CSV file
+    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
 
-def chat_with_csv(df,prompt):
-    llm = OpenAI(api_token=openai_api_key)
-    pandas_ai = PandasAI(llm)
-    result = pandas_ai.run(df, prompt=prompt)
-    print(result)
-    return result
+    if uploaded_file is not None:
+        # Load data from CSV
+        data = pd.read_csv(uploaded_file)
 
-st.set_page_config(layout='wide')
+        # Display chat interface
+        user_input = st.text_input("You:", "")
 
-st.title("ChatCSV powered by LLM")
+        if st.button("Send"):
+            if user_input:
+                # Generate response using OpenAI API
+                response = generate_response(user_input)
 
-input_csv = st.file_uploader("Upload your CSV file", type=['csv'])
+                # Display response
+                st.text_area("Bot:", value=response, height=200)
 
-if input_csv is not None:
-
-        col1, col2 = st.columns([1,1])
-
-        with col1:
-            st.info("CSV Uploaded Successfully")
-            data = pd.read_csv(input_csv)
-            st.dataframe(data, use_container_width=True)
-
-        with col2:
-
-            st.info("Chat Below")
-            
-            input_text = st.text_area("Enter your query")
-
-            if input_text is not None:
-                if st.button("Chat with CSV"):
-                    st.info("Your Query: "+input_text)
-                    result = chat_with_csv(data, input_text)
-                    st.success(result)
-
+if __name__ == "__main__":
+    main()
