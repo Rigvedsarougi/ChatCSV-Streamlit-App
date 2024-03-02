@@ -3,7 +3,7 @@ import pandas as pd
 import openai
 
 # Set up OpenAI API
-openai.api_key = "your_openai_api_key"
+openai.api_key = "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"
 
 # Define function to generate response using OpenAI API
 def generate_response(prompt):
